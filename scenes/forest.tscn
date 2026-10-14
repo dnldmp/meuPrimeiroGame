@@ -1,0 +1,93 @@
+[gd_scene format=4 uid="uid://c4oe54ocryuu8"]
+
+[ext_resource type="PackedScene" uid="uid://slecb62m6hxn" path="res://entities/player.tscn" id="1_xijx7"]
+[ext_resource type="TileSet" uid="uid://bxyv4t3wi77eg" path="res://tile/terrain.tres" id="2_0afsd"]
+[ext_resource type="Texture2D" uid="uid://gc0dh8nkm861" path="res://sprites/Seasonal Tilesets/2 - Autumn Forest/Background parts/6 - Distant_trees.png" id="3_bgcxa"]
+[ext_resource type="Texture2D" uid="uid://quywo7y8iclr" path="res://sprites/Seasonal Tilesets/2 - Autumn Forest/Background parts/5 - Tree_row_BG_2.png" id="4_sek5r"]
+[ext_resource type="Texture2D" uid="uid://cutvymj6r8y0x" path="res://sprites/Seasonal Tilesets/2 - Autumn Forest/Background parts/4 - Tree_row_BG_1.png" id="5_i1yi8"]
+[ext_resource type="Texture2D" uid="uid://b7o6wc108uufl" path="res://sprites/Seasonal Tilesets/2 - Autumn Forest/Background parts/3 - Bottom_leaf_piles.png" id="6_qm7rg"]
+[ext_resource type="Texture2D" uid="uid://4lwbuajg170p" path="res://sprites/Seasonal Tilesets/2 - Autumn Forest/Background parts/2 - Trees.png" id="7_qm7rg"]
+[ext_resource type="Texture2D" uid="uid://ukn1slihmjyg" path="res://sprites/Seasonal Tilesets/2 - Autumn Forest/Background parts/1 - Leaf_top.png" id="8_0nboi"]
+
+[node name="Forest" type="Node2D" unique_id=101281969]
+
+[node name="Player" parent="." unique_id=488844937 instance=ExtResource("1_xijx7")]
+position = Vector2(51, 185)
+
+[node name="Terrain" type="TileMapLayer" parent="." unique_id=1480978106]
+tile_map_data = PackedByteArray("AAAAAAwAAQACAAMAAAABAAwAAQACAAMAAAACAAwAAQACAAMAAAADAAwAAQACAAMAAAAEAAwAAQACAAMAAAAFAAwAAQACAAMAAAAGAAwAAQACAAMAAAAHAAwAAQACAAMAAAAIAAwAAQACAAMAAAAJAAwAAQACAAMAAAAKAAwAAQACAAMAAAALAAwAAQACAAMAAAAMAAwAAQACAAMAAAANAAwAAQACAAMAAAAOAAwAAQACAAMAAAAPAAwAAQACAAMAAAAQAAwAAQACAAMAAAARAAwAAQACAAMAAAASAAwAAQACAAMAAAATAAwAAQACAAMAAAAUAAwAAQACAAMAAAAVAAwAAQACAAMAAAAWAAwAAQACAAMAAAAXAAwAAQACAAMAAAAYAAwAAQACAAMAAAAZAAwAAQACAAMAAAAaAAwAAQACAAMAAAAbAAwAAQACAAMAAAAcAAwAAQACAAMAAAAdAAwAAQACAAMAAAAeAAwAAQACAAMAAAAfAAwAAQACAAMAAAAgAAwAAQACAAMAAAAhAAwAAQACAAMAAAAiAAwAAQACAAMAAAAjAAwAAQACAAMAAAAkAAwAAQACAAMAAAAlAAwAAQACAAMAAAAmAAwAAQACAAMAAAAnAAwAAQACAAMAAAAoAAwAAQACAAMAAAApAAwAAQACAAMAAAAqAAwAAQACAAMAAAArAAwAAQACAAMAAAAsAAwAAQACAAMAAAAtAAwAAQACAAMAAAAuAAwAAQACAAMAAAAvAAwAAQACAAMAAAAwAAwAAQACAAMAAAAxAAwAAQACAAMAAAAyAAwAAQACAAMAAAAzAAwAAQACAAMAAAA0AAwAAQACAAMAAAA1AAwAAQACAAMAAAA2AAwAAQACAAMAAAA3AAwAAQACAAMAAAA4AAwAAQACAAMAAAA5AAwAAQACAAMAAAA6AAwAAQACAAMAAAA7AAwAAQACAAMAAAA8AAwAAQACAAMAAAA9AAwAAQACAAMAAAA+AAwAAQACAAMAAAA/AAwAAQACAAMAAABAAAwAAQACAAMAAABBAAwAAQACAAMAAABCAAwAAQACAAMAAABDAAwAAQACAAMAAABEAAwAAQACAAMAAABFAAwAAQACAAMAAABGAAwAAQACAAMAAABHAAwAAQACAAMAAABIAAwAAQACAAMAAABJAAwAAQACAAMAAABKAAwAAQACAAMAAABLAAwAAQACAAMAAABMAAwAAQACAAMAAABNAAwAAQACAAMAAABOAAwAAQACAAMAAABPAAwAAQACAAMAAABQAAwAAQACAAMAAABRAAwAAQACAAMAAABSAAwAAQACAAMAAABTAAwAAQACAAMAAABUAAwAAQACAAMAAABVAAwAAQACAAMAAABWAAwAAQACAAMAAABXAAwAAQACAAMAAABYAAwAAQACAAMAAABZAAwAAQACAAMAAABaAAwAAQACAAMAAABbAAwAAQACAAMAAABcAAwAAQACAAMAAABdAAwAAQACAAMAAABeAAwAAQACAAMAAABfAAwAAQACAAMAAABgAAwAAQACAAMAAABhAAwAAQACAAMAAABiAAwAAQACAAMAAABjAAwAAQACAAMAAABkAAwAAQACAAMAAABlAAwAAQACAAMAAABmAAwAAQACAAMAAABnAAwAAQACAAMAAABoAAwAAQACAAMAAABpAAwAAQACAAMAAABqAAwAAQACAAMAAABrAAwAAQACAAMAAABsAAwAAQACAAMAAABtAAwAAQACAAMAAABuAAwAAQACAAMAAABvAAwAAQACAAMAAABwAAwAAQACAAMAAABxAAwAAQACAAMAAAByAAwAAQACAAMAAABzAAwAAQACAAMAAAB0AAwAAQACAAMAAAB1AAwAAQACAAMAAAB2AAwAAQACAAMAAAB3AAwAAQACAAMAAAB4AAwAAQACAAMAAAB5AAwAAQACAAMAAAB6AAwAAQACAAMAAAB7AAwAAQACAAMAAAB8AAwAAQACAAMAAAB9AAwAAQACAAMAAAB+AAwAAQACAAMAAAB/AAwAAQACAAMAAACAAAwAAQACAAMAAACBAAwAAQACAAMAAACCAAwAAQACAAMAAACDAAwAAQACAAMAAACEAAwAAQACAAMAAACFAAwAAQACAAMAAACGAAwAAQACAAMAAACHAAwAAQACAAMAAACIAAwAAQACAAMAAACJAAwAAQACAAMAAACKAAwAAQACAAMAAACLAAwAAQACAAMAAACMAAwAAQACAAMAAACNAAwAAQACAAMAAACOAAwAAQACAAMAAACPAAwAAQACAAMAAACQAAwAAQACAAMAAACRAAwAAQACAAMAAACSAAwAAQACAAMAAACTAAwAAQACAAMAAACUAAwAAQACAAMAAACVAAwAAQACAAMAAACWAAwAAQACAAMAAACXAAwAAQACAAMAAAA=")
+tile_set = ExtResource("2_0afsd")
+
+[node name="ParalaxBackground" type="Node2D" parent="." unique_id=9542552]
+
+[node name="6" type="Parallax2D" parent="ParalaxBackground" unique_id=1645833349]
+z_index = -1
+scroll_scale = Vector2(0.1, 0.1)
+repeat_size = Vector2(288, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParalaxBackground/6" unique_id=1505195299]
+texture_repeat = 2
+texture = ExtResource("3_bgcxa")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 576, 208)
+
+[node name="5" type="Parallax2D" parent="ParalaxBackground" unique_id=1233422238]
+z_index = -1
+scroll_scale = Vector2(0.2, 0.2)
+repeat_size = Vector2(288, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParalaxBackground/5" unique_id=873559974]
+texture_repeat = 2
+texture = ExtResource("4_sek5r")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 576, 208)
+
+[node name="4" type="Parallax2D" parent="ParalaxBackground" unique_id=1951762942]
+z_index = -1
+scroll_scale = Vector2(0.3, 0.3)
+repeat_size = Vector2(288, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParalaxBackground/4" unique_id=1189703392]
+texture_repeat = 2
+texture = ExtResource("5_i1yi8")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 576, 208)
+
+[node name="3" type="Parallax2D" parent="ParalaxBackground" unique_id=1290097297]
+z_index = -1
+scroll_scale = Vector2(0.4, 0.4)
+repeat_size = Vector2(288, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParalaxBackground/3" unique_id=1398923799]
+texture_repeat = 2
+texture = ExtResource("6_qm7rg")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 576, 208)
+
+[node name="2" type="Parallax2D" parent="ParalaxBackground" unique_id=518418853]
+z_index = -1
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(288, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParalaxBackground/2" unique_id=1907254458]
+texture_repeat = 2
+texture = ExtResource("7_qm7rg")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 576, 208)
+
+[node name="1" type="Parallax2D" parent="ParalaxBackground" unique_id=2018176352]
+z_index = -1
+scroll_scale = Vector2(1.2, 1.2)
+repeat_size = Vector2(288, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParalaxBackground/1" unique_id=1416626944]
+texture_repeat = 2
+texture = ExtResource("8_0nboi")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 576, 208)
