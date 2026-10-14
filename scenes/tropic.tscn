@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b04aob7vfvn6o" path="res://sprites/Seasonal Tilesets/3 - Tropics/Background parts/3 - Background_clouds.png" id="6_2v5ri"]
 [ext_resource type="Texture2D" uid="uid://c0ai0y4panu41" path="res://sprites/Seasonal Tilesets/3 - Tropics/Background parts/1 - Waters_version_1.png" id="7_63ryy"]
 [ext_resource type="Texture2D" uid="uid://bhex6r6pia24x" path="res://sprites/Seasonal Tilesets/3 - Tropics/Background parts/2 - Waters_version_2.png" id="8_wyuaa"]
+[ext_resource type="PackedScene" uid="uid://chotr1c56af2i" path="res://entities/camera.tscn" id="9_wyuaa"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xw2wd"]
 animations = [{
@@ -24,9 +25,6 @@ animations = [{
 }]
 
 [node name="Tropic" type="Node2D" unique_id=1677711797]
-
-[node name="Player" parent="." unique_id=488844937 instance=ExtResource("1_j8cmn")]
-position = Vector2(16, 168)
 
 [node name="Terrain" type="TileMapLayer" parent="." unique_id=1804053124]
 tile_map_data = PackedByteArray("AAABAAsAAgACAAMAAAACAAsAAgACAAMAAAADAAsAAgACAAMAAAAEAAsAAgACAAMAAAAFAAsAAgACAAMAAAAGAAsAAgACAAMAAAAHAAsAAgACAAMAAAAIAAsAAgACAAMAAAAJAAsAAgACAAMAAAAKAAsAAgACAAMAAAALAAsAAgACAAMAAAAMAAsAAgACAAMAAAANAAsAAgAHAAMAAAAAAAsAAgACAAMAAAAQAAoAAgAPAAMAAAATAAsAAgABAAMAAAAUAAsAAgACAAMAAAAVAAsAAgACAAMAAAAWAAsAAgACAAMAAAAXAAsAAgACAAMAAAAYAAsAAgACAAMAAAAZAAsAAgACAAMAAAAaAAsAAgACAAMAAAAbAAsAAgACAAMAAAAcAAsAAgACAAMAAAAdAAsAAgACAAMAAAAeAAsAAgACAAMAAAAfAAsAAgACAAMAAAAgAAsAAgACAAMAAAAhAAsAAgACAAMAAAAiAAsAAgACAAMAAAAjAAsAAgACAAMAAAAkAAsAAgACAAMAAAAlAAsAAgACAAMAAAAmAAsAAgACAAMAAAAnAAsAAgACAAMAAAAoAAsAAgACAAMAAAApAAsAAgACAAMAAAAqAAsAAgACAAMAAAArAAsAAgACAAMAAAAsAAsAAgACAAMAAAAMAAcAAgAJAAMAAAANAAcAAgAKAAMAAAAOAAcAAgAMAAMAAAAPAAcAAgANAAMAAAAIAAQAAgAJAAMAAAAJAAQAAgAKAAMAAAAKAAQAAgAMAAMAAAALAAQAAgANAAMAAAAEAAIAAgAJAAMAAAAFAAIAAgAKAAMAAAAGAAIAAgAMAAMAAAAHAAIAAgANAAMAAAAJAP//AgAJAAMAAAAKAP//AgAKAAMAAAALAP//AgAMAAMAAAAMAP//AgANAAMAAAANAPz/AgAJAAMAAAAOAPz/AgAKAAMAAAAPAPz/AgAMAAMAAAAQAPz/AgANAAMAAAARAPn/AgAJAAMAAAASAPn/AgAKAAMAAAATAPn/AgAMAAMAAAAUAPn/AgANAAMAAAAVAPb/AgAJAAMAAAAWAPb/AgAKAAMAAAAXAPb/AgAMAAMAAAAYAPb/AgANAAMAAAAYAPP/AgAJAAMAAAAZAPP/AgAKAAMAAAAaAPP/AgAMAAMAAAAbAPP/AgANAAMAAAAbAPD/AgAJAAMAAAAcAPD/AgAKAAMAAAAdAPD/AgAMAAMAAAAeAPD/AgANAAMAAAA=")
@@ -93,3 +91,8 @@ sprite_frames = SubResource("SpriteFrames_xw2wd")
 autoplay = "default"
 frame_progress = 0.78064656
 centered = false
+
+[node name="Camera" parent="." unique_id=30922332 instance=ExtResource("9_wyuaa")]
+
+[node name="Player" parent="." unique_id=488844937 instance=ExtResource("1_j8cmn")]
+position = Vector2(28, 168)
