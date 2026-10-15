@@ -7,7 +7,6 @@
 [node name="Game" type="Node2D" unique_id=1495276517]
 
 [node name="Player" parent="." unique_id=488844937 instance=ExtResource("1_uwrxv")]
-z_index = 1
 position = Vector2(20, 168)
 
 [node name="Tiles" type="Node2D" parent="." unique_id=670943931]
