@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dpxllrmkjuljh" path="res://sprites/Penguin/Waddling (16 x 16).png" id="3_e4p34"]
 [ext_resource type="Texture2D" uid="uid://uhi8prh813el" path="res://sprites/Penguin/Falling (16 x 16).png" id="3_qsoyl"]
 [ext_resource type="Texture2D" uid="uid://dmob8hygfun2g" path="res://sprites/Penguin/Jump (16 x 16).png" id="3_rfe5m"]
+[ext_resource type="Texture2D" uid="uid://c75nrvoue4pki" path="res://sprites/Penguin/Belly_Sliding (16 x 16).png" id="6_6nm46"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e4p34"]
 atlas = ExtResource("2_b0kkn")
@@ -30,6 +31,18 @@ region = Rect2(64, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_q0i8f"]
 atlas = ExtResource("3_rfe5m")
 region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0i614"]
+atlas = ExtResource("6_6nm46")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oprnr"]
+atlas = ExtResource("6_6nm46")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rie4"]
+atlas = ExtResource("6_6nm46")
+region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i623q"]
 atlas = ExtResource("3_e4p34")
@@ -103,6 +116,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_0i614")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oprnr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8rie4")
+}],
+"loop": 1,
+"name": &"slide",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_i623q")
 }, {
 "duration": 1.0,
@@ -136,8 +163,8 @@ script = ExtResource("1_3vyb7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1136032245]
 sprite_frames = SubResource("SpriteFrames_xw2wd")
-animation = &"fall"
-frame_progress = 0.83803034
+animation = &"slide"
+frame_progress = 0.29963928
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1803467946]
 position = Vector2(0, 1)
