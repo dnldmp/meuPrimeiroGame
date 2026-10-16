@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bhex6r6pia24x" path="res://sprites/Seasonal Tilesets/3 - Tropics/Background parts/2 - Waters_version_2.png" id="8_wyuaa"]
 [ext_resource type="PackedScene" uid="uid://chotr1c56af2i" path="res://entities/camera.tscn" id="9_wyuaa"]
 [ext_resource type="PackedScene" uid="uid://cecj7xl8fu86q" path="res://entities/level_end.tscn" id="10_ttii7"]
+[ext_resource type="PackedScene" uid="uid://d1gnf7tfdk2pr" path="res://entities/skeleton.tscn" id="11_tqg4o"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xw2wd"]
 animations = [{
@@ -112,5 +113,8 @@ next_level = "uid://c4oe54ocryuu8"
 [node name="CollisionShape2D" parent="LevelEnd" index="0" unique_id=592381317]
 position = Vector2(-11, -73)
 shape = SubResource("RectangleShape2D_ttii7")
+
+[node name="Skeleton" parent="." unique_id=1340464015 instance=ExtResource("11_tqg4o")]
+position = Vector2(75, 145)
 
 [editable path="LevelEnd"]

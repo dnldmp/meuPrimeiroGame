@@ -6,10 +6,11 @@ enum PlayerState {
 	jump,
 	fall,
 	duck,
-	slide
+	slide,
+	dead
 }
 
-@onready var animated: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animation: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 @export var max_jump_count = 2
@@ -44,43 +45,49 @@ func _physics_process(delta: float) -> void:
 			duck_state(delta)
 		PlayerState.slide:
 			slide_state(delta)
+		PlayerState.dead:
+			dead_state(delta)
 		
 	move_and_slide()
 
 func go_to_idle_state():
 	status = PlayerState.idle
-	animated.play("idle")
+	animation.play("idle")
 	
 func go_to_walk_state():
 	status = PlayerState.walk
-	animated.play("walk")
+	animation.play("walk")
 
 func go_to_jump_state():
 	status = PlayerState.jump
-	animated.play("jump")
+	animation.play("jump")
 	velocity.y = JUMP_VELOCITY
 	jump_count += 1
 
 func go_to_fall_state():
 	status = PlayerState.fall
-	animated.play("fall")
+	animation.play("fall")
 
 func go_to_duck_state():
 	status = PlayerState.duck
-	animated.play("duck")
+	animation.play("duck")
 	set_small_collider()
-	
 
 func exit_from_duck_state():
 	set_large_collider()
 
 func go_to_slide_state():
 	status = PlayerState.slide
-	animated.play("slide")
+	animation.play("slide")
 	set_small_collider()
 
 func exit_from_slide_state():
 	set_large_collider()
+
+func go_to_dead_state():
+	status = PlayerState.dead
+	animation.play("dead")
+	velocity = Vector2.ZERO
 
 func idle_state(delta: float):
 	move(delta)
@@ -150,6 +157,9 @@ func slide_state(delta: float):
 		exit_from_slide_state()
 		return go_to_duck_state()
 
+func dead_state(_delta: float):
+	pass
+
 func move(delta: float):
 	update_direction()
 	
@@ -162,9 +172,9 @@ func update_direction():
 	direction = Input.get_axis("ui_left", "ui_right")
 	
 	if direction < 0:
-		animated.flip_h = true
+		animation.flip_h = true
 	elif direction > 0:
-		animated.flip_h = false
+		animation.flip_h = false
 
 func can_jump() -> bool:
 	return jump_count < max_jump_count
@@ -181,3 +191,12 @@ func check_and_go_to_fall_state():
 	if !is_on_floor():
 		jump_count += 1
 		return go_to_fall_state()
+
+
+func _on_hitbox_area_entered(area: Area2D):
+	if velocity.y > 0 && !is_on_floor():
+		# Inimigo morre
+		area.get_parent().take_damage()
+		return go_to_jump_state()
+	# Player morre
+	return go_to_dead_state()
