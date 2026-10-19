@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dmob8hygfun2g" path="res://sprites/Penguin/Jump (16 x 16).png" id="3_rfe5m"]
 [ext_resource type="Texture2D" uid="uid://c6etuthfxmgcf" path="res://sprites/Penguin/Lying_On_Ground (16 x 16).png" id="3_tjdhl"]
 [ext_resource type="Texture2D" uid="uid://c75nrvoue4pki" path="res://sprites/Penguin/Belly_Sliding (16 x 16).png" id="6_6nm46"]
+[ext_resource type="Texture2D" uid="uid://wtun02d7o2hq" path="res://sprites/Penguin/Wall_Slide (16x16).png" id="10_tjdhl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e4p34"]
 atlas = ExtResource("2_b0kkn")
@@ -69,6 +70,22 @@ region = Rect2(64, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_kdgjc"]
 atlas = ExtResource("3_e4p34")
 region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dp3pk"]
+atlas = ExtResource("10_tjdhl")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgp7q"]
+atlas = ExtResource("10_tjdhl")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1n8aq"]
+atlas = ExtResource("10_tjdhl")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28s6d"]
+atlas = ExtResource("10_tjdhl")
+region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xw2wd"]
 animations = [{
@@ -163,6 +180,23 @@ animations = [{
 "loop": 1,
 "name": &"walk",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dp3pk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cgp7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1n8aq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28s6d")
+}],
+"loop": 1,
+"name": &"wall",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i623q"]
@@ -179,19 +213,32 @@ script = ExtResource("1_3vyb7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1136032245]
 sprite_frames = SubResource("SpriteFrames_xw2wd")
-animation = &"dead"
-frame = 1
-frame_progress = 1.0
+animation = &"wall"
+frame_progress = 0.33713788
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1803467946]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_i623q")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=377827715]
+visible = false
+collision_layer = 2
+collision_mask = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1149645472]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_xw2wd")
 debug_color = Color(0.81222874, 0.0021017736, 0.9834761, 0.41960785)
 
+[node name="ReloadTimer" type="Timer" parent="." unique_id=434967700]
+one_shot = true
+
+[node name="LeftWallDetector" type="RayCast2D" parent="." unique_id=1795097144]
+target_position = Vector2(-6, 0)
+
+[node name="RightWallDetector" type="RayCast2D" parent="." unique_id=795130976]
+target_position = Vector2(6, 0)
+
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]

@@ -29,6 +29,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ttii7"]
 size = Vector2(20, 177)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tqg4o"]
+size = Vector2(20, 609)
+
 [node name="Tropic" type="Node2D" unique_id=1677711797]
 metadata/_edit_vertical_guides_ = [665.0]
 
@@ -101,6 +104,7 @@ tile_map_data = PackedByteArray("AAAAAAwAAwAMAAYAAAABAAwAAwAMAAYAAAACAAwAAwAMAAY
 tile_set = ExtResource("3_mtmls")
 
 [node name="Camera" parent="." unique_id=30922332 instance=ExtResource("9_wyuaa")]
+position = Vector2(11, 168)
 limit_right = 665
 
 [node name="Player" parent="." unique_id=488844937 instance=ExtResource("1_j8cmn")]
@@ -115,6 +119,13 @@ position = Vector2(-11, -73)
 shape = SubResource("RectangleShape2D_ttii7")
 
 [node name="Skeleton" parent="." unique_id=1340464015 instance=ExtResource("11_tqg4o")]
-position = Vector2(75, 145)
+position = Vector2(215, 160)
+
+[node name="Limit" type="StaticBody2D" parent="." unique_id=1141766656]
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Limit" unique_id=445079189]
+position = Vector2(-10, -96.5)
+shape = SubResource("RectangleShape2D_tqg4o")
 
 [editable path="LevelEnd"]

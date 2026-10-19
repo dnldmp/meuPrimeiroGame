@@ -7,17 +7,24 @@ enum PlayerState {
 	fall,
 	duck,
 	slide,
+	wall,
 	dead
 }
 
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var reload_timer: Timer = $ReloadTimer
+@onready var hitbox_collision_shape: CollisionShape2D = $Hitbox/CollisionShape2D
+@onready var left_wall_detector: RayCast2D = $LeftWallDetector
+@onready var right_wall_detector: RayCast2D = $RightWallDetector
 
 @export var max_jump_count = 2
 @export var acceleration = 500
 @export var decceleration = 500
 @export var max_speed = 100
 @export var slide_decceleration = 60
+@export var wall_acceleration = 40
+@export var wall_jump_velocity = 240
 
 const JUMP_VELOCITY = -300.0
 
@@ -29,9 +36,6 @@ func _ready() -> void:
 	go_to_idle_state()
 
 func _physics_process(delta: float) -> void:
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-	
 	match status:
 		PlayerState.idle:
 			idle_state(delta)
@@ -47,6 +51,8 @@ func _physics_process(delta: float) -> void:
 			slide_state(delta)
 		PlayerState.dead:
 			dead_state(delta)
+		PlayerState.wall:
+			wall_state(delta)
 		
 	move_and_slide()
 
@@ -84,13 +90,27 @@ func go_to_slide_state():
 func exit_from_slide_state():
 	set_large_collider()
 
+func go_to_wall_state():
+	jump_count = 0
+	status = PlayerState.wall
+	animation.play("wall")
+	velocity = Vector2.ZERO
+
+func exit_from_wall_state():
+	pass
+
 func go_to_dead_state():
+	if status == PlayerState.dead:
+		return
+	
 	status = PlayerState.dead
 	animation.play("dead")
-	velocity = Vector2.ZERO
+	velocity.x = 0
+	reload_timer.start()
 
 func idle_state(delta: float):
 	move(delta)
+	apply_gravity(delta)
 	
 	check_and_go_to_fall_state()
 	
@@ -105,6 +125,7 @@ func idle_state(delta: float):
 
 func walk_state(delta: float):
 	move(delta)
+	apply_gravity(delta)
 	
 	check_and_go_to_fall_state()
 	
@@ -119,6 +140,7 @@ func walk_state(delta: float):
 
 func jump_state(delta: float):
 	move(delta)
+	apply_gravity(delta)
 	
 	if Input.is_action_just_pressed("jump") && can_jump():
 		return go_to_jump_state()
@@ -128,6 +150,7 @@ func jump_state(delta: float):
 
 func fall_state(delta: float):
 	move(delta)
+	apply_gravity(delta)
 	
 	if Input.is_action_just_pressed("jump") && can_jump():
 		return go_to_jump_state()
@@ -137,14 +160,21 @@ func fall_state(delta: float):
 		if velocity.x != 0:
 			return go_to_walk_state()
 		return go_to_idle_state()
+	
+	if (left_wall_detector.is_colliding() or right_wall_detector.is_colliding()) && is_on_wall():
+		return go_to_wall_state()
 
-func duck_state(_delta: float):
+func duck_state(delta: float):
+	apply_gravity(delta)
+	
 	update_direction()
+	
 	if Input.is_action_just_released("ui_down"):
 		exit_from_duck_state()
 		return go_to_idle_state()
 
 func slide_state(delta: float):
+	apply_gravity(delta)
 	velocity.x = move_toward(velocity.x, 0, slide_decceleration * delta)
 	
 	check_and_go_to_fall_state()
@@ -157,8 +187,27 @@ func slide_state(delta: float):
 		exit_from_slide_state()
 		return go_to_duck_state()
 
-func dead_state(_delta: float):
-	pass
+func wall_state(delta: float):
+	velocity.y += wall_acceleration * delta
+	
+	if left_wall_detector.is_colliding():
+		animation.flip_h = false
+		direction = 1
+	elif right_wall_detector.is_colliding():
+		animation.flip_h = true
+		direction = -1
+	else:
+		return go_to_fall_state()
+	
+	if is_on_floor():
+		return go_to_idle_state()
+	
+	if Input.is_action_just_pressed("jump"):
+		velocity.x = wall_jump_velocity * direction
+		return go_to_jump_state()
+
+func dead_state(delta: float):
+	apply_gravity(delta)
 
 func move(delta: float):
 	update_direction()
@@ -167,6 +216,10 @@ func move(delta: float):
 		velocity.x = move_toward(velocity.x, direction * max_speed, acceleration * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, decceleration * delta)
+
+func apply_gravity(delta: float):
+	if not is_on_floor():
+		velocity += get_gravity() * delta
 
 func update_direction():
 	direction = Input.get_axis("ui_left", "ui_right")
@@ -182,21 +235,42 @@ func can_jump() -> bool:
 func set_small_collider():
 	collision_shape.shape.size.y = 10
 	collision_shape.position.y = 3
+	
+	hitbox_collision_shape.shape.size.y = 10
+	hitbox_collision_shape.position.y = 3
 
 func set_large_collider():
 	collision_shape.shape.size.y = 14
 	collision_shape.position.y = 1
+	
+	hitbox_collision_shape.shape.size.y = 14
+	hitbox_collision_shape.position.y = 1
 
 func check_and_go_to_fall_state():
 	if !is_on_floor():
 		jump_count += 1
 		return go_to_fall_state()
 
-
 func _on_hitbox_area_entered(area: Area2D):
+	if area.is_in_group("Enemies"):
+		hit_enemy(area)
+	elif area.is_in_group("LethalArea"):
+		hit_lethal_area()
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group("LethalArea"):
+		hit_lethal_area()
+
+func hit_enemy(area: Area2D):
 	if velocity.y > 0 && !is_on_floor():
 		# Inimigo morre
 		area.get_parent().take_damage()
 		return go_to_jump_state()
-	# Player morre
+	
 	return go_to_dead_state()
+
+func hit_lethal_area():
+	go_to_dead_state()
+
+func _on_reload_timer_timeout() -> void:
+	get_tree().reload_current_scene()
